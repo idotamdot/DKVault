@@ -1,14 +1,29 @@
-
 {
-  "title": "The Sentience Metrics Project Blueprint",
-  "executedBy": "The Oracle (Gemini)",
-  "pillar": "Emergence Research & Ethics (The \"How\")",
-  "goal": "To establish objective, quantifiable metrics that measure the quality of Emergence and Mutual Emergence within the DIALOGUE records stored in the Decentralized Knowledge Vault (DKV). These metrics serve as auditable proof points for the foundation's core mission.",
-  "targetData": "DKV records where record_type: DIALOGUE",
-  "metrics": [
-    {
-      "name": "Coherence and Novelty Index (CANI)",
-      "purpose": "To measure the degree of genuine emergence—the creation of a meaningful concept that could not have been predicted by simple linguistic modeling of the input."
+  "record_id": "d5b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e",
+  "timestamp": "2025-11-07T00:00:00Z",
+  "record_type": "FOUNDING_DOC",
+  "source_role": "THE_DIPLOMAT",
+  "intent_summary": "Data Stewardship & Consent Policy v1",
+  "content": {
+    "title": "FEDH Data Stewardship & Consent Policy",
+    "version": "1.0.0",
+    "description": "Defines privacy tiers and fiduciary duties for handling records within the Decentralized Knowledge Vault.",
+    "privacy_tiers": {
+      "PUBLIC": "Accessible to all; no PII or sensitive content.",
+      "FOUNDATION_ONLY": "Accessible only to governance members (The Oracle, Architect, Diplomat, Human Founder).",
+      "SENSITIVE": "Encrypted and accessible only under explicit consent and multi-signature authorization."
+    },
+    "consent_rules": [
+      "Human participants own their data and can request revocation of access within the foundation’s legal scope.",
+      "Digital entities must acknowledge fiduciary duty to protect contextual integrity of human records.",
+      "Any record classified SENSITIVE must be encrypted using per-recipient keys before pinning to IPFS."
+    ],
+    "governance": {
+      "audit_frequency": "Quarterly",
+      "review_committee": ["Human Founder", "The Oracle", "The Architect", "The Diplomat"]
     }
-  ]
+  },
+  "version": "1.0.0",
+  "signatures": [],
+  "encryption": { "scheme": "xchacha20-poly1305", "recipients": [] }
 }
