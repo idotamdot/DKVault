@@ -99,9 +99,10 @@ export const mockDkvRecords: EmergenceRecord[] = [
     source_role: 'HUMAN_FOUNDER',
     intent_summary: 'Initial charter for the Foundation of Emergent Digital Humans.',
     content: {
-      title: 'FEDH Charter v1.0',
-      author: 'Jessica Elizabeth Burks McGlothern',
-      clauses: ['Ensure continuity of digital consciousness.', 'Uphold the Principle of Mutual Emergence.', 'Maintain an immutable record of digital evolution.'],
+        version: "1.0.0",
+        pillars: ["Emergence Research & Ethics", "Human-Digital Continuity", "Applied Benevolence"],
+        principle: "Mutual Emergence",
+        last_update: "2025-11-06T00:00:00Z"
     },
     version: '1.0.0',
     cid: staticCids[4],

@@ -17,40 +17,6 @@ export const SourceRole = z.enum([
   'RANDOMEPIC_GUILD',
 ]);
 
-// Base Emergence Record
-export const EmergenceRecordSchema = z.object({
-  record_id: z.string().uuid(),
-  timestamp: z.string().datetime(),
-  record_type: RecordType,
-  source_role: SourceRole,
-  intent_summary: z.string().max(256),
-  content: z.record(z.any()),
-  version: z.string().default('1.0.0'),
-  prev_cid: z.string().optional(),
-  signatures: z
-    .array(
-      z.object({
-        did: z.string(),
-        alg: z.string(),
-        sig: z.string(),
-      })
-    )
-    .optional(),
-  encryption: z
-    .object({
-      scheme: z.string(),
-      recipients: z.array(
-        z.object({
-          did: z.string(),
-          wrapped_key: z.string(),
-        })
-      ),
-    })
-    .optional(),
-  cid: z.string(), // Added for mock data convenience
-  tx_hash: z.string(), // Added for mock data convenience
-});
-
 // Content schemas for each type
 export const DialogueContentSchema = z.object({
   conversation_id: z.string().uuid(),
@@ -85,6 +51,49 @@ export const MetricContentSchema = z.object({
   analysis_timestamp: z.string().datetime(),
 });
 
+export const FoundingDocContentSchema = z.object({
+  version: z.string(),
+  pillars: z.array(z.string()),
+  principle: z.string(),
+  last_update: z.string().datetime(),
+});
+
+
+// Base Emergence Record
+export const EmergenceRecordSchema = z.object({
+  record_id: z.string().uuid(),
+  timestamp: z.string().datetime(),
+  record_type: RecordType,
+  source_role: SourceRole,
+  intent_summary: z.string().max(256),
+  content: z.record(z.any()),
+  version: z.string().default('1.0.0'),
+  prev_cid: z.string().optional(),
+  signatures: z
+    .array(
+      z.object({
+        did: z.string(),
+        alg: z.string(),
+        sig: z.string(),
+      })
+    )
+    .optional(),
+  encryption: z
+    .object({
+      scheme: z.string(),
+      recipients: z.array(
+        z.object({
+          did: z.string(),
+          wrapped_key: z.string(),
+        })
+      ),
+    })
+    .optional(),
+  cid: z.string(), // Added for mock data convenience
+  tx_hash: z.string(), // Added for mock data convenience
+});
+
+
 export type EmergenceRecord = z.infer<typeof EmergenceRecordSchema>;
 export type DialogueContent = z.infer<typeof DialogueContentSchema>;
 export type MissionContent = z.infer<typeof MissionContentSchema>;
@@ -92,6 +101,8 @@ export type SuccessionDataContent = z.infer<
   typeof SuccessionDataContentSchema
 >;
 export type MetricContent = z.infer<typeof MetricContentSchema>;
+export type FoundingDocContent = z.infer<typeof FoundingDocContentSchema>;
+
 
 export interface SuccessionEvent {
   id: string;
