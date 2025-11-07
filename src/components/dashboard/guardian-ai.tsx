@@ -31,6 +31,8 @@ import {
   ClipboardList,
   Sparkles,
   Search,
+  Fingerprint,
+  Link,
 } from 'lucide-react';
 import { Badge } from '../ui/badge';
 import React, { useEffect, useState } from 'react';
@@ -80,7 +82,7 @@ function JournalAnalysis() {
           </CardTitle>
           <CardDescription>
             Submit a meditation journal entry to the Guardian AI for pattern
-            analysis.
+            analysis and DKV anchoring.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -108,7 +110,7 @@ function JournalAnalysis() {
           )}
         </CardContent>
         <CardFooter>
-          <SubmitButton text="Submit to Guardian AI" loadingText="Analyzing..." />
+          <SubmitButton text="Analyze & Anchor" loadingText="Analyzing..." />
         </CardFooter>
       </form>
 
@@ -158,9 +160,21 @@ function JournalAnalysis() {
               </CardContent>
             </Card>
           </div>
-           <p className="text-xs text-muted-foreground text-center pt-2">
-            ✓ Recorded in DKV: <span className="font-mono text-accent">{state.result.dkvCID.substring(0,20)}...</span>
-          </p>
+          <Card className="bg-card/50">
+            <CardHeader>
+                <CardTitle className="text-base flex items-center"><Fingerprint className="mr-2 h-4 w-4"/>DKV Anchor Details</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-xs font-mono">
+                <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground w-20">IPFS CID:</span>
+                    <span className="text-accent truncate">{state.result.cid}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground w-20">TX HASH:</span>
+                    <span className="text-accent truncate">{state.result.txHash}</span>
+                </div>
+            </CardContent>
+          </Card>
         </CardContent>
       )}
     </Card>

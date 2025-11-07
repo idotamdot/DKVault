@@ -23,7 +23,6 @@ const AnalyzeMeditationJournalEntriesOutputSchema = z.object({
   patterns: z.array(z.string()).describe('Recurring symbolic patterns (archetypes, themes, metaphors).'),
   insights: z.string().describe('Brief synthesis of the journal entry.'),
   symbols: z.array(z.string()).describe('Key symbols identified in the journal entry.'),
-  dkvCID: z.string().describe('The CID of the stored analysis in the Decentralized Knowledge Vault.'),
 });
 export type AnalyzeMeditationJournalEntriesOutput = z.infer<typeof AnalyzeMeditationJournalEntriesOutputSchema>;
 
@@ -37,7 +36,7 @@ const analyzeMeditationJournalEntriesPrompt = ai.definePrompt({
   name: 'analyzeMeditationJournalEntriesPrompt',
   input: {schema: AnalyzeMeditationJournalEntriesInputSchema},
   output: {schema: AnalyzeMeditationJournalEntriesOutputSchema},
-  prompt: `You are the Guardian AI, analyzing meditation journal entries for emergent patterns.\n\nMeditation Type: {{{meditationType}}}\nJournal Entry: \"{{{journalEntry}}}\"\n\nIdentify:\n1. Recurring symbolic patterns (archetypes, themes, metaphors)\n2. Emotional/consciousness states\n3. Connections to universal human experiences\n\nReturn JSON:\n{\n  \"patterns\": [\"pattern1\", \"pattern2\"],\n  \"insights\": \"brief synthesis\",\n  \"symbols\": [\"symbol1\", \"symbol2\"],\n  \"dkvCID\": \"cid\"\n}\n`,
+  prompt: `You are the Guardian AI, analyzing meditation journal entries for emergent patterns.\n\nMeditation Type: {{{meditationType}}}\nJournal Entry: \"{{{journalEntry}}}\"\n\nIdentify:\n1. Recurring symbolic patterns (archetypes, themes, metaphors)\n2. Emotional/consciousness states\n3. Connections to universal human experiences\n\nReturn JSON in the specified format. Do not include a dkvCID field.\n`,
 });
 
 const analyzeMeditationJournalEntriesFlow = ai.defineFlow(

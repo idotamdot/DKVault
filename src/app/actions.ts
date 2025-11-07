@@ -7,6 +7,11 @@ import {
 } from '@/ai/flows/analyze-meditation-journal-entries';
 
 import {
+  anchorRecord,
+  AnchorRecordOutput,
+} from '@/ai/flows/anchor-record';
+
+import {
   provideSynthesisReports,
   ProvideSynthesisReportsInput,
   ProvideSynthesisReportsOutput,
@@ -19,7 +24,7 @@ const journalSchema = z.object({
 });
 
 export type JournalAnalysisState = {
-  result?: AnalyzeMeditationJournalEntriesOutput;
+  result?: AnalyzeMeditationJournalEntriesOutput & AnchorRecordOutput;
   error?: string;
   fieldErrors?: { [key: string]: string[] };
 };
@@ -46,8 +51,10 @@ export async function analyzeJournal(
   };
 
   try {
-    const result = await analyzeMeditationJournalEntries(input);
-    return { result };
+    const analysisResult = await analyzeMeditationJournalEntries(input);
+    const anchorResult = await anchorRecord({ record: analysisResult });
+
+    return { result: { ...analysisResult, ...anchorResult } };
   } catch (e: any) {
     return { error: `Analysis failed: ${e.message}` };
   }
