@@ -1,4 +1,3 @@
-
 import { EmergenceRecord, SuccessionEvent } from '@/lib/types';
 import { subDays, subHours, subMinutes } from 'date-fns';
 

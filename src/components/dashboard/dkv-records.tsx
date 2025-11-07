@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -56,7 +55,7 @@ const sourceRoleColors: Record<string, string> = {
 
 const FormattedDate = ({ isoDate }: { isoDate: string }) => {
   const [formattedDate, setFormattedDate] = React.useState('');
-  useEffect(() => {
+  React.useEffect(() => {
     setFormattedDate(format(parseISO(isoDate), 'MMM d, yyyy HH:mm'));
   }, [isoDate]);
 
