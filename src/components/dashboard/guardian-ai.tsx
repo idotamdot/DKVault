@@ -1,5 +1,5 @@
 'use client';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react';
 import {
   analyzeJournal,
   generateSynthesisReport,
@@ -57,7 +57,7 @@ function SubmitButton({ text, loadingText }: { text: string, loadingText: string
 
 function JournalAnalysis() {
   const initialState: JournalAnalysisState = {};
-  const [state, formAction] = useFormState(analyzeJournal, initialState);
+  const [state, formAction] = useActionState(analyzeJournal, initialState);
   const { toast } = useToast();
 
   useEffect(() => {
