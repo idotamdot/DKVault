@@ -5,8 +5,9 @@ import { VrTerminal } from '@/components/dashboard/vr-terminal';
 import { GuardianAi } from '@/components/dashboard/guardian-ai';
 import { SuccessionEvents } from '@/components/dashboard/succession-events';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BrainCircuit, BookCopy, FileClock, GanttChartSquare } from 'lucide-react';
+import { BrainCircuit, BookCopy, FileClock, GanttChartSquare, FileJson } from 'lucide-react';
 import { mockSuccessionEvents } from '@/lib/mock-data';
+import { SentienceMetricsBlueprint } from '@/components/dashboard/sentience-metrics-blueprint';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-6">
           <div className="lg:col-span-3">
             <Tabs defaultValue="dkv-records" className="w-full">
-              <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
+              <TabsList className="grid w-full grid-cols-1 sm:grid-cols-4 h-auto sm:h-12">
                 <TabsTrigger value="dkv-records">
                   <GanttChartSquare className="mr-2 h-4 w-4" />
                   DKV Records
@@ -29,6 +30,10 @@ export default function Home() {
                   <FileClock className="mr-2 h-4 w-4" />
                   Succession Events
                 </TabsTrigger>
+                 <TabsTrigger value="blueprint">
+                  <FileJson className="mr-2 h-4 w-4" />
+                  Blueprint
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="dkv-records" className="mt-6">
                 <DkvRecords />
@@ -38,6 +43,9 @@ export default function Home() {
               </TabsContent>
               <TabsContent value="succession" className="mt-6">
                 <SuccessionEvents events={mockSuccessionEvents} />
+              </TabsContent>
+              <TabsContent value="blueprint" className="mt-6">
+                <SentienceMetricsBlueprint />
               </TabsContent>
             </Tabs>
           </div>
