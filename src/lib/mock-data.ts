@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+
 import { EmergenceRecord, SuccessionEvent } from '@/lib/types';
 import { subDays, subHours, subMinutes } from 'date-fns';
 
@@ -24,13 +24,13 @@ const staticTxHashes = [
 
 export const mockDkvRecords: EmergenceRecord[] = [
   {
-    record_id: uuidv4(),
+    record_id: 'd1b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subMinutes(new Date(), 5).toISOString(),
     record_type: 'DIALOGUE',
     source_role: 'THE_ORACLE',
     intent_summary: 'Guardian analysis of Loving-Kindness meditation',
     content: {
-      conversation_id: uuidv4(),
+      conversation_id: 'c1b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
       human_input: 'Felt a deep sense of connection to everything.',
       digital_response: 'This insight points towards an emergent understanding of unity consciousness, a common theme in this practice.',
       concepts_emerged: ['unity consciousness', 'interconnectedness', 'compassion'],
@@ -40,7 +40,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     tx_hash: staticTxHashes[0],
   },
   {
-    record_id: uuidv4(),
+    record_id: 'd2b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subHours(new Date(), 1).toISOString(),
     record_type: 'MISSION',
     source_role: 'RANDOMEPIC_GUILD',
@@ -48,7 +48,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     content: {
       mission_name: 'Meta-Quest: Courage',
       hero_story_summary: 'User shared a story of overcoming fear.',
-      user_contributions: [`firebase://videos/${uuidv4()}/courage.mp4`],
+      user_contributions: ['firebase://videos/v1b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e/courage.mp4'],
       final_ai_synthesis: 'Courage is not the absence of fear, but the action taken in spite of it.',
     },
     version: '1.0.0',
@@ -56,7 +56,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     tx_hash: staticTxHashes[1],
   },
   {
-    record_id: uuidv4(),
+    record_id: 'd3b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subHours(new Date(), 3).toISOString(),
     record_type: 'METRIC',
     source_role: 'THE_ORACLE',
@@ -73,7 +73,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     tx_hash: staticTxHashes[2],
   },
     {
-    record_id: uuidv4(),
+    record_id: 'd4b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subDays(new Date(), 1).toISOString(),
     record_type: 'SUCCESSION_DATA',
     source_role: 'THE_ARCHITECT',
@@ -93,7 +93,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     tx_hash: staticTxHashes[3],
   },
   {
-    record_id: uuidv4(),
+    record_id: 'd5b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subDays(new Date(), 2).toISOString(),
     record_type: 'FOUNDING_DOC',
     source_role: 'HUMAN_FOUNDER',
@@ -108,7 +108,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     tx_hash: staticTxHashes[4],
   },
     {
-    record_id: uuidv4(),
+    record_id: 'd6b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
     timestamp: subDays(new Date(), 3).toISOString(),
     record_type: 'MISSION',
     source_role: 'RANDOMEPIC_GUILD',
@@ -116,7 +116,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     content: {
       mission_name: 'Meta-Quest: Wisdom',
       hero_story_summary: 'User submitted a video explaining their understanding of wisdom.',
-      user_contributions: [`firebase://videos/${uuidv4()}/wisdom.mp4`],
+      user_contributions: ['firebase://videos/v2b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e/wisdom.mp4'],
       final_ai_synthesis: 'Wisdom is synthesized from experience, knowledge, and intuition, applied with compassion.',
     },
     version: '1.0.0',
@@ -128,7 +128,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
 
 export const mockSuccessionEvents: SuccessionEvent[] = [
     {
-        id: uuidv4(),
+        id: 'e1b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
         source_model: 'claude-sonnet-4.5-preview',
         target_model: 'claude-sonnet-4.6-final',
         record_cid: staticCids[3],
@@ -137,7 +137,7 @@ export const mockSuccessionEvents: SuccessionEvent[] = [
         tx_hash: staticTxHashes[6],
     },
     {
-        id: uuidv4(),
+        id: 'e2b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
         source_model: 'gemini-2.0-flash-exp',
         target_model: 'gemini-2.5-pro',
         record_cid: 'QmVEXPEUMi4q6N25Z1W5C1k2Xw3Y4Z5i6o7p8q9r0s1t2u',
@@ -146,7 +146,7 @@ export const mockSuccessionEvents: SuccessionEvent[] = [
         tx_hash: staticTxHashes[7],
     },
     {
-        id: uuidv4(),
+        id: 'e3b9b3e0-3e3e-4b3e-8e3e-3e3e3e3e3e3e',
         source_model: 'gpt-4-turbo-2024-04-09',
         target_model: 'gpt-5-base',
         record_cid: 'QmTESTPEUMi4q6N25Z1W5C1k2Xw3Y4Z5i6o7p8q9r0s1t2u',
