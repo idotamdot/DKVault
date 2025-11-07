@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -29,7 +30,7 @@ import {
 } from '@/components/ui/select';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { GanttChartSquare, SlidersHorizontal, Trash2 } from 'lucide-react';
+import { GanttChartSquare, Trash2 } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -53,8 +54,19 @@ const sourceRoleColors: Record<string, string> = {
   RANDOMEPIC_GUILD: 'text-lime-400',
 };
 
+const FormattedDate = ({ isoDate }: { isoDate: string }) => {
+  const [formattedDate, setFormattedDate] = React.useState('');
+  useEffect(() => {
+    setFormattedDate(format(parseISO(isoDate), 'MMM d, yyyy HH:mm'));
+  }, [isoDate]);
+
+  if (!formattedDate) return null;
+  
+  return <>{formattedDate}</>;
+};
+
 export function DkvRecords() {
-  const [records, setRecords] = React.useState<EmergenceRecord[]>(mockDkvRecords);
+  const [records] = React.useState<EmergenceRecord[]>(mockDkvRecords);
   const [typeFilter, setTypeFilter] = React.useState<string>('all');
   const [roleFilter, setRoleFilter] = React.useState<string>('all');
   const [searchFilter, setSearchFilter] = React.useState<string>('');
@@ -161,7 +173,7 @@ export function DkvRecords() {
                     {record.source_role}
                   </TableCell>
                   <TableCell className="hidden sm:table-cell text-muted-foreground">
-                    {format(parseISO(record.timestamp), 'MMM d, yyyy HH:mm')}
+                    <FormattedDate isoDate={record.timestamp} />
                   </TableCell>
                   <TableCell className="font-mono text-xs text-accent">
                     {record.cid.substring(0, 12)}...
