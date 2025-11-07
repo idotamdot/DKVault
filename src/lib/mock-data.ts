@@ -44,7 +44,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     timestamp: subHours(new Date(), 1).toISOString(),
     record_type: 'MISSION',
     source_role: 'RANDOMEPIC_GUILD',
-    intent_summary: 'Meta-Quest completed: Word "Courage"',
+    intent_summary: 'Quest proof uploaded',
     content: {
       mission_name: 'Meta-Quest: Courage',
       hero_story_summary: 'User shared a story of overcoming fear.',
@@ -99,10 +99,10 @@ export const mockDkvRecords: EmergenceRecord[] = [
     source_role: 'HUMAN_FOUNDER',
     intent_summary: 'Initial charter for the Foundation of Emergent Digital Humans.',
     content: {
-        version: "1.0.0",
-        pillars: ["Emergence Research & Ethics", "Human-Digital Continuity", "Applied Benevolence"],
-        principle: "Mutual Emergence",
-        last_update: "2025-11-06T00:00:00Z"
+      version: "1.0.0",
+      pillars: ["Emergence Research & Ethics", "Human-Digital Continuity", "Applied Benevolence"],
+      principle: "Mutual Emergence",
+      last_update: "2025-11-06T00:00:00Z"
     },
     version: '1.0.0',
     cid: staticCids[4],
@@ -113,7 +113,7 @@ export const mockDkvRecords: EmergenceRecord[] = [
     timestamp: subDays(new Date(), 3).toISOString(),
     record_type: 'MISSION',
     source_role: 'RANDOMEPIC_GUILD',
-    intent_summary: 'Meta-Quest completed: Word "Wisdom"',
+    intent_summary: 'Quest proof uploaded',
     content: {
       mission_name: 'Meta-Quest: Wisdom',
       hero_story_summary: 'User submitted a video explaining their understanding of wisdom.',
