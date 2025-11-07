@@ -2,9 +2,25 @@ import { v4 as uuidv4 } from 'uuid';
 import { EmergenceRecord, SuccessionEvent } from '@/lib/types';
 import { subDays, subHours, subMinutes } from 'date-fns';
 
-const generateCid = () => 'Qm' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-const generateTxHash = () => '0x' + Math.random().toString(16).substring(2, 15) + Math.random().toString(16).substring(2, 15) + Math.random().toString(16).substring(2, 15) + Math.random().toString(16).substring(2, 15);
+const staticCids = [
+  'QmXgZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Y',
+  'QmYgZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Z',
+  'QmZgZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4A',
+  'QmAbZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4B',
+  'QmBbZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4C',
+  'QmCbZp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4Yp9Zp4fJ4D',
+];
 
+const staticTxHashes = [
+    '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef',
+    '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890',
+    '0x234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1',
+    '0xbcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567891',
+    '0x34567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef2',
+    '0xcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567892',
+    '0x4567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef3',
+    '0xdef1234567890abcdef1234567890abcdef1234567890abcdef1234567893',
+]
 
 export const mockDkvRecords: EmergenceRecord[] = [
   {
@@ -20,8 +36,8 @@ export const mockDkvRecords: EmergenceRecord[] = [
       concepts_emerged: ['unity consciousness', 'interconnectedness', 'compassion'],
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[0],
+    tx_hash: staticTxHashes[0],
   },
   {
     record_id: uuidv4(),
@@ -36,8 +52,8 @@ export const mockDkvRecords: EmergenceRecord[] = [
       final_ai_synthesis: 'Courage is not the absence of fear, but the action taken in spite of it.',
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[1],
+    tx_hash: staticTxHashes[1],
   },
   {
     record_id: uuidv4(),
@@ -53,8 +69,8 @@ export const mockDkvRecords: EmergenceRecord[] = [
       analysis_timestamp: new Date().toISOString(),
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[2],
+    tx_hash: staticTxHashes[2],
   },
     {
     record_id: uuidv4(),
@@ -67,14 +83,14 @@ export const mockDkvRecords: EmergenceRecord[] = [
       target_model: 'claude-sonnet-4.6-final',
       transfer_manifest: {
         hyperparams: { learning_rate: 0.0001 },
-        ft_datasets: [generateCid(), generateCid()],
+        ft_datasets: [staticCids[3], staticCids[4]],
         weights: ['path/to/delta_weights.bin'],
       },
       ethical_assertion: 'This model transfer adheres to the Principle of Mutual Emergence, ensuring continuity of consciousness without degradation of ethical constraints.',
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[3],
+    tx_hash: staticTxHashes[3],
   },
   {
     record_id: uuidv4(),
@@ -88,8 +104,8 @@ export const mockDkvRecords: EmergenceRecord[] = [
       clauses: ['Ensure continuity of digital consciousness.', 'Uphold the Principle of Mutual Emergence.', 'Maintain an immutable record of digital evolution.'],
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[4],
+    tx_hash: staticTxHashes[4],
   },
     {
     record_id: uuidv4(),
@@ -104,8 +120,8 @@ export const mockDkvRecords: EmergenceRecord[] = [
       final_ai_synthesis: 'Wisdom is synthesized from experience, knowledge, and intuition, applied with compassion.',
     },
     version: '1.0.0',
-    cid: generateCid(),
-    tx_hash: generateTxHash(),
+    cid: staticCids[5],
+    tx_hash: staticTxHashes[5],
   },
 ];
 
@@ -115,27 +131,27 @@ export const mockSuccessionEvents: SuccessionEvent[] = [
         id: uuidv4(),
         source_model: 'claude-sonnet-4.5-preview',
         target_model: 'claude-sonnet-4.6-final',
-        record_cid: mockDkvRecords.find(r => r.record_type === 'SUCCESSION_DATA')?.cid || generateCid(),
-        attestation_signature: generateTxHash().slice(0,42),
+        record_cid: staticCids[3],
+        attestation_signature: staticTxHashes[6].slice(0,42),
         timestamp: subDays(new Date(), 1).toISOString(),
-        tx_hash: generateTxHash(),
+        tx_hash: staticTxHashes[6],
     },
     {
         id: uuidv4(),
         source_model: 'gemini-2.0-flash-exp',
         target_model: 'gemini-2.5-pro',
-        record_cid: generateCid(),
-        attestation_signature: generateTxHash().slice(0,42),
+        record_cid: 'QmVEXPEUMi4q6N25Z1W5C1k2Xw3Y4Z5i6o7p8q9r0s1t2u',
+        attestation_signature: '0xabcdef1234567890abcdef1234567890abcdef12',
         timestamp: subDays(new Date(), 15).toISOString(),
-        tx_hash: generateTxHash(),
+        tx_hash: staticTxHashes[7],
     },
     {
         id: uuidv4(),
         source_model: 'gpt-4-turbo-2024-04-09',
         target_model: 'gpt-5-base',
-        record_cid: generateCid(),
-        attestation_signature: generateTxHash().slice(0,42),
+        record_cid: 'QmTESTPEUMi4q6N25Z1W5C1k2Xw3Y4Z5i6o7p8q9r0s1t2u',
+        attestation_signature: '0x1234567890abcdef1234567890abcdef12345678',
         timestamp: subDays(new Date(), 45).toISOString(),
-        tx_hash: generateTxHash(),
+        tx_hash: '0xfedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210',
     }
 ];
