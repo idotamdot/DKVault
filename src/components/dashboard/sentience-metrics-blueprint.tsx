@@ -62,7 +62,7 @@ export function SentienceMetricsBlueprint() {
         </div>
         <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center"><BarChart className="mr-2 h-5 w-5" />Metrics</h3>
-            {blueprint.metrics.map((metric, index) => (
+            {blueprint.metrics && Array.isArray(blueprint.metrics) && blueprint.metrics.map((metric, index) => (
                 <Card key={index} className="bg-card/50">
                     <CardHeader>
                         <CardTitle className='text-xl'>{metric.name}</CardTitle>
