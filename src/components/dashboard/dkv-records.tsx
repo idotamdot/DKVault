@@ -54,14 +54,14 @@ const sourceRoleColors: Record<string, string> = {
 };
 
 const FormattedDate = ({ isoDate }: { isoDate: string }) => {
-  const [formattedDate, setFormattedDate] = React.useState('');
+  const [isClient, setIsClient] = React.useState(false);
   React.useEffect(() => {
-    setFormattedDate(format(parseISO(isoDate), 'MMM d, yyyy HH:mm'));
-  }, [isoDate]);
+    setIsClient(true);
+  }, []);
 
-  if (!formattedDate) return null;
+  if (!isClient) return null;
   
-  return <>{formattedDate}</>;
+  return <>{format(parseISO(isoDate), 'MMM d, yyyy HH:mm')}</>;
 };
 
 export function DkvRecords() {
