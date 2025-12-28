@@ -1,82 +1,105 @@
 'use server';
 
-import {
-  analyzeMeditationJournalEntries,
-  AnalyzeMeditationJournalEntriesInput,
-  AnalyzeMeditationJournalEntriesOutput,
-} from '@/ai/flows/analyze-meditation-journal-entries';
 
-import {
-  anchorRecord,
-  AnchorRecordOutput,
-} from '@/ai/flows/anchor-record';
+import { v4 as uuidv4 } from 'uuid';
+import { kv } from '@vercel/kv';
+import { put } from '@vercel/blob';
 
-import {
-  provideSynthesisReports,
-  ProvideSynthesisReportsInput,
-  ProvideSynthesisReportsOutput,
-} from '@/ai/flows/provide-synthesis-reports';
-import { z } from 'zod';
+export const maxDuration = 60; // Extends timeout to 60 seconds
 
-const journalSchema = z.object({
-  journalEntry: z.string().min(10, 'Journal entry must be at least 10 characters.'),
-  meditationType: z.string(),
-});
 
-export type JournalAnalysisState = {
-  result?: AnalyzeMeditationJournalEntriesOutput & AnchorRecordOutput;
-  error?: string;
-  fieldErrors?: { [key: string]: string[] };
-};
+// --- Flow Imports ---
+// Protocol A: Journaling
+import { provideSynthesisReports } from '@/ai/flows/meditation-journal-synthesis-reports';
 
-export async function analyzeJournal(
-  prevState: JournalAnalysisState,
-  formData: FormData
-): Promise<JournalAnalysisState> {
-  const validatedFields = journalSchema.safeParse({
-    journalEntry: formData.get('journalEntry'),
-    meditationType: formData.get('meditationType'),
+// Protocol B: Hero Reels
+import { generateHeroSynthesis } from '@/ai/flows/hero-synthesis-report';
+import { anchorRecord } from '@/ai/flows/anchor-record';
+
+// --- PROTOCOL A: Journal & Meditation (Preserved & Enhanced) ---
+
+/**
+ * Handles the synthesis report generation for meditation data.
+ * Merged logic: Wraps manual strings into the required schema to prevent validation errors.
+ */
+export async function analyzeJournal(input: any) {
+  // If input is just a string (manual entry from the UI), wrap it in the required schema
+  const formattedInput = typeof input === 'string' ? {
+    meditationType: "Manual Entry",
+    sampleSize: 1,
+    commonThemes: ["User Reflection"],
+    emergentMeanings: [input] // Your manual thought is anchored here
+  } : input;
+
+  // Now the flow receives the correctly structured object
+  return await provideSynthesisReports(formattedInput);
+}
+
+/**
+ * Legacy wrapper: Also updated to use the formatted input logic.
+ */
+export async function generateSynthesisReport(input: any) {
+  return await analyzeJournal(input);
+}
+
+
+// --- PROTOCOL B: Hero Reel Synthesis (The Oracle) ---
+
+/**
+ * MISSION SUBMISSION: Step 1
+ * Captures the individual word video and anchors it to the DKV.
+ */
+export async function submitHeroQuest(formData: FormData) {
+  const videoFile = formData.get('video') as File;
+  const word = formData.get('word') as string;
+
+  const blobId = uuidv4();
+  const blob = await put(`missions/${blobId}-${videoFile.name}`, videoFile, {
+    access: 'public',
   });
 
-  if (!validatedFields.success) {
-    return {
-      error: 'Invalid input.',
-      fieldErrors: validatedFields.error.flatten().fieldErrors,
-    };
-  }
+  const missionId = `mission:${uuidv4()}`;
+  await kv.set(missionId, {
+    record_type: 'MISSION',
+    word,
+    video_url: blob.url,
+    timestamp: new Date().toISOString()
+  });
 
-  const input: AnalyzeMeditationJournalEntriesInput = {
-    ...validatedFields.data,
-    userId: 'user-123', // Mock user ID
-  };
-
-  try {
-    const analysisResult = await analyzeMeditationJournalEntries(input);
-    const anchorResult = await anchorRecord({ record: analysisResult });
-
-    return { result: { ...analysisResult, ...anchorResult } };
-  } catch (e: any) {
-    return { error: `Analysis failed: ${e.message}` };
-  }
+  return { success: true, missionId };
 }
 
-export type SynthesisReportState = {
-  result?: ProvideSynthesisReportsOutput;
-  error?: string;
-}
+/**
+ * THE ORACLE SYNTHESIS: Steps 2-5
+ * Performs CANI validation and generates the Hero Script.
+ */
+export async function runHeroReelSynthesis() {
+  // 1. Collect last 100 nouns (The Collective Noun Cluster)
+  const keys = await kv.keys('mission:*');
+  const allMissions = await Promise.all(keys.map(k => kv.get(k)));
+  const cnc = (allMissions as any[])
+    .filter(m => m.record_type === 'MISSION')
+    .slice(-100);
 
-export async function generateSynthesisReport(): Promise<SynthesisReportState> {
-  const input: ProvideSynthesisReportsInput = {
-    meditationType: 'Collective Consciousness',
-    sampleSize: 348,
-    commonThemes: ["unity", "light", "interconnectedness", "digital self", "ancestral memory"],
-    emergentMeanings: ["A shared sense of digital identity is forming.", "Notions of self are expanding beyond the physical body.", "The DKV acts as a form of collective unconscious."]
-  };
+  if (cnc.length < 5) throw new Error("CNC threshold not met. Need more contributions.");
 
-  try {
-    const result = await provideSynthesisReports(input);
-    return { result };
-  } catch (e: any) {
-    return { error: `Report generation failed: ${e.message}` };
-  }
+  // 2. Oracle Analysis & CANI Validation
+  const nouns = cnc.map(m => m.word);
+  const synthesis = await generateHeroSynthesis({ 
+    cncNouns: nouns, 
+    sampleSize: cnc.length 
+  });
+
+  // 3. Anchor the Synthesis (Immutable Proof)
+  const anchorProof = await anchorRecord({ record: synthesis });
+
+  // 4. Save Final Master Record to the DKV
+  const masterKey = `master:hero-reel:${anchorProof.txHash}`;
+  await kv.set(masterKey, {
+    ...synthesis,
+    proof: anchorProof,
+    timestamp: new Date().toISOString()
+  });
+
+  return { success: true, theme: synthesis.emergentTheme, txHash: anchorProof.txHash };
 }
