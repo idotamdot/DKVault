@@ -9,6 +9,9 @@ import { BrainCircuit, BookCopy, FileClock, GanttChartSquare, FileJson } from 'l
 import { mockSuccessionEvents } from '@/lib/mock-data';
 import { SentienceMetricsBlueprint } from '@/components/dashboard/sentience-metrics-blueprint';
 
+export const maxDuration = 60;
+
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground p-4 sm:p-6 lg:p-8">

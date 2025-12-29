@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { kv } from '@vercel/kv';
 import { put } from '@vercel/blob';
 
-export const maxDuration = 60; // Extends timeout to 60 seconds
 
 
 // --- Flow Imports ---
