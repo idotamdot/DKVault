@@ -19,13 +19,8 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Ensures Vercel deployment succeeds even with minor linting/type warnings
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Note: 'eslint' and 'typescript' ignore settings have been moved 
+  // to the deployment pipeline or separate config files in Next.js 16.
 };
 
 export default nextConfig;
